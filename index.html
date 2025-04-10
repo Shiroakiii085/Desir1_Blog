@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Personal Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-pink': '#ff2a6d',
+                        'cyber-blue': '#05d9e8',
+                        'cyber-yellow': '#ffff00',
+                        'cyber-purple': '#d300c5',
+                        'cyber-dark': '#0d0221',
+                        'cyber-black': '#0a0a0a',
+                    },
+                    animation: {
+                        'glitch': 'glitch 1s infinite',
+                        'neon-pulse': 'neonPulse 2s infinite',
+                        'flicker': 'flicker 0.5s infinite alternate'
+                    },
+                    keyframes: {
+                        glitch: {
+                            '0%': { transform: 'translate(0)' },
+                            '20%': { transform: 'translate(-5px, 5px)' },
+                            '40%': { transform: 'translate(-5px, -5px)' },
+                            '60%': { transform: 'translate(5px, 5px)' },
+                            '80%': { transform: 'translate(5px, -5px)' },
+                            '100%': { transform: 'translate(0)' }
+                        },
+                        neonPulse: {
+                            '0%, 100%': { textShadow: '0 0 10px #05d9e8, 0 0 20px #05d9e8, 0 0 30px #05d9e8' },
+                            '50%': { textShadow: '0 0 5px #05d9e8, 0 0 10px #05d9e8, 0 0 15px #05d9e8' }
+                        },
+                        flicker: {
+                            '0%, 18%, 22%, 25%, 53%, 57%, 100%': { textShadow: '0 0 14px #05d9e8, 0 0 20px #05d9e8, 0 0 30px #05d9e8' },
+                            '20%, 24%, 55%': { textShadow: 'none' }
+                        }
+                    },
+                    fontFamily: {
+                        'cyber': ['Segoe UI', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body class="min-h-screen dark:bg-cyber-dark dark:text-white font-cyber">
+    <!-- Success Message -->
+    <div class="form-success" id="formSuccess">
+        <span class="close-success" id="closeSuccess"><i class="fas fa-times"></i></span>
+        <h3 class="text-2xl font-orbitron font-bold text-cyber-blue mb-4">Đã Gửi Thành Công!</h3>
+        <p class="text-gray-300 mb-6">Tin nhắn của bạn đã được gửi. Chúng tôi sẽ liên hệ lại trong thời gian sớm nhất.
+        </p>
+        <div class="w-16 h-16 mx-auto mb-4">
+            <i class="fas fa-check-circle text-cyber-yellow text-6xl"></i>
+        </div>
+        <button id="successOk"
+            class="bg-cyber-blue hover:bg-cyber-purple text-white font-orbitron py-2 px-6 rounded-md transition duration-300">OK</button>
+    </div>
+
+    <!-- Character Model -->
+    <div class="character-model" id="characterModel">
+        <img id="characterImage" class="character-img" alt="Character Image">
+        <button class="add-model-button" id="addModelButton">
+            <i class="fas fa-user-plus icon"></i>
+            <span>THÊM MODEL LUCY</span>
+        </button>
+        <input type="file" id="characterUpload" class="file-input" accept="image/*">
+    </div>
+
+    <!-- Character Dialog -->
+    <div class="character-dialog" id="characterDialog">
+        <div class="dialog-arrow"></div>
+        <div class="dialog-header">
+            <div class="dialog-title">CHARACTER</div>
+            <div class="dialog-close" id="dialogClose"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="dialog-content">
+            Chào mừng bạn đến Night City. Tôi là Lucy một Netrunner. Chào mừng bạn tới với Blog của Desir1."
+        </div>
+    </div>
+
+    <!-- Toggle Button -->
+    <button class="character-toggle" id="characterToggle"><i class="fas fa-chevron-left"></i></button>
+
+    <div class="mx-auto max-w-6xl px-4">
+        <!-- Navigation -->
+        <nav
+            class="my-4 py-3 flex justify-between items-center backdrop-blur-sm bg-opacity-20 bg-black rounded-lg px-4 border border-cyber-blue shadow-lg dark:shadow-neon">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-orbitron font-bold text-cyber-blue animate-neon-pulse">Desir1_<span
+                        class="text-cyber-purple">BLOG</span></h1>
+            </div>
+            <div class="flex gap-4 text-sm md:text-base">
+                <a href="#about" class="text-cyber-blue hover:text-cyber-yellow transition duration-300">ABOUT</a>
+                <a href="#blog" class="text-cyber-blue hover:text-cyber-yellow transition duration-300">BLOG</a>
+                <a href="#skills" class="text-cyber-blue hover:text-cyber-yellow transition duration-300">SKILLS</a>
+                <a href="#contact" class="text-cyber-blue hover:text-cyber-yellow transition duration-300">CONTACT</a>
+            </div>
+        </nav>
+
+        <!-- Hero Banner -->
+        <div
+            class="cyber-border relative mt-8 mb-12 py-12 px-6 md:py-16 md:px-10 rounded-lg backdrop-blur-sm bg-opacity-30 bg-black text-center overflow-hidden">
+            <div class="glitch-text text-4xl md:text-6xl font-orbitron font-bold mb-6 text-cyber-green"
+                data-text="CYBERPUNK: EDGERUNNER">CYBERPUNK: EDGERUNNER</div>
+            <p class="text-lg md:text-xl text-cyber-blue mb-8">Chào mừng đến với Blog của Desir1</p>
+        </div>
+
+        <!-- About Me -->
+        <section id="about" class="mb-16">
+            <h2 class="text-3xl font-orbitron font-bold text-cyber-yellow mb-8 animate-flicker">ABOUT ME</h2>
+            <div class="cyberpunk-card p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-1">
+                    <div
+                        class="cyber-border rounded-lg overflow-hidden h-64 flex items-center justify-center bg-cyber-dark">
+                        <svg class="w-32 h-32 text-cyber-blue" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                clip-rule="evenodd"><img class="avt" src="./assets/imgs/Jiraiya.jpg"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="md:col-span-2">
+                    <h3 class="text-2xl font-orbitron font-bold text-cyber-blue mb-4">Desir1</h3>
+                    <p class="mb-4 text-gray-300">Freshman, Information Technology, Dai Nam University (DNU). </p>
+                    <p class="mb-6 text-gray-300">Heh bro... still reading??? Nothing:))) because I'm a man of few
+                        words.</p>
+                    <div class="flex gap-4">
+                        <a href="https://github.com/Shiroakiii085" class="text-cyber-blue hover:text-cyber-yellow"><i
+                                class="fab fa-github text-2xl"></i></a>
+                        <a href="https://www.facebook.com/hieupham.lfm"
+                            class="text-cyber-blue hover:text-cyber-yellow"><i
+                                class="fab fa-facebook-f text-2xl"></i></a>
+                        <a href="https://www.instagram.com/hiuphl.shi_aki/"
+                            class="text-cyber-blue hover:text-cyber-yellow"><i
+                                class="fab fa-instagram text-2xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills" class="mb-16">
+            <h2 class="text-3xl font-orbitron font-bold text-cyber-yellow mb-8 animate-flicker">SKILLS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="cyberpunk-card p-6 rounded-lg">
+                    <h3 class="text-xl font-orbitron font-bold text-cyber-blue mb-4">Programming Languages</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-cyber-blue">Python</span>
+                                <span class="text-cyber-yellow">40%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="progress-bar h-2 rounded-full"
+                                    style="width: 40%; background-size: 200% 200%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-cyber-blue">C#</span>
+                                <span class="text-cyber-yellow">60%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="progress-bar h-2 rounded-full"
+                                    style="width: 30%; background-size: 200% 200%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-cyber-blue">JS</span>
+                                <span class="text-cyber-yellow">70%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="progress-bar h-2 rounded-full"
+                                    style="width: 70%; background-size: 200% 200%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-cyber-blue">C++</span>
+                                <span class="text-cyber-yellow">50%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="progress-bar h-2 rounded-full"
+                                    style="width: 50%; background-size: 200% 200%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cyberpunk-card p-6 rounded-lg">
+                    <h3 class="text-xl font-orbitron font-bold text-cyber-blue mb-4">Personal Information</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div
+                            class="border border-cyber-blue rounded-lg p-4 text-center hover:bg-cyber-blue hover:bg-opacity-20 transition duration-300">
+                            <i class="fas fa-brain text-3xl text-cyber-yellow mb-2"></i>
+                            <p>Dai Nam University</p>
+                        </div>
+                        <div
+                            class="border border-cyber-blue rounded-lg p-4 text-center hover:bg-cyber-blue hover:bg-opacity-20 transition duration-300">
+                            <i class="fas fa-eye text-3xl text-cyber-yellow mb-2"></i>
+                            <p>Game Developer</p>
+                        </div>
+                        <div
+                            class="border border-cyber-blue rounded-lg p-4 text-center hover:bg-cyber-blue hover:bg-opacity-20 transition duration-300">
+                            <i class="fas fa-microchip text-3xl text-cyber-yellow mb-2"></i>
+                            <p>English: Updating...</p>
+                        </div>
+                        <div
+                            class="border border-cyber-blue rounded-lg p-4 text-center hover:bg-cyber-blue hover:bg-opacity-20 transition duration-300">
+                            <i class="fas fa-hand-rock text-3xl text-cyber-yellow mb-2"></i>
+                            <p>Good Health</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Entries -->
+        <section id="blog" class="mb-16">
+            <h2 class="text-3xl font-orbitron font-bold text-cyber-yellow mb-8 animate-flicker">LATEST POSTS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Blog 1 -->
+                <div class="cyberpunk-card rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-cyber-purple to-cyber-blue flex items-center justify-center">
+                        <i class=""><img src="./assets/imgs/CE_HUB.png"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between mb-3">
+                            <span class="text-cyber-blue text-sm">WEB</span>
+                            <span class="text-gray-400 text-sm">12/08/2077</span>
+                        </div>
+                        <h3 class="font-orbitron font-bold text-xl mb-3 text-cyber-blue">PJ-01</h3>
+                        <p class="text-gray-300 mb-4">Project-01: Cyberpunk Edrunner HUB</p>
+                        <a href="https://shiroakiii085.github.io/Edgerunner_HUB/" class="text-cyber-yellow hover:text-cyber-blue inline-flex items-center">
+                            Let's go <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blog 2 -->
+                <div class="cyberpunk-card rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-cyber-blue to-cyber-yellow flex items-center justify-center">
+                        <i><img src="./assets/imgs/VirtualPet.png"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between mb-3">
+                            <span class="text-cyber-blue text-sm">WEB GAME</span>
+                            <span class="text-gray-400 text-sm">07/04/2025</span>
+                        </div>
+                        <h3 class="font-orbitron font-bold text-xl mb-3 text-cyber-blue">PJ-02
+                        </h3>
+                        <p class="text-gray-300 mb-4">Project-02: Virtual Pet Game.</p>
+                        <a href="https://shiroakiii085.github.io/Virtual_Pet/" class="text-cyber-yellow hover:text-cyber-blue inline-flex items-center">
+                            Let's go <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blog 3 -->
+                <div class="cyberpunk-card rounded-lg overflow-hidden">
+                    <div
+                        class="h-48 bg-gradient-to-r from-cyber-yellow to-cyber-purple flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-5xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between mb-3">
+                            <span class="text-cyber-blue text-sm">???</span>
+                            <span class="text-gray-400 text-sm">???</span>
+                        </div>
+                        <h3 class="font-orbitron font-bold text-xl mb-3 text-cyber-blue">PJ-Updating...</h3>
+                        <p class="text-gray-300 mb-4">Updating...</p>
+                        <a href="#" class="text-cyber-yellow hover:text-cyber-blue inline-flex items-center">
+                             <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="mb-16">
+            <h2 class="text-3xl font-orbitron font-bold text-cyber-yellow mb-8 animate-flicker">CONTACT ME</h2>
+            <div class="cyberpunk-card p-6 rounded-lg">
+                <form id="contactForm" action="https://formsubmit.co/hphamle159@gmail.com" method="POST"
+                    class="space-y-6">
+                    <!-- FormSubmit.co Configuration -->
+                    <input type="hidden" name="_subject" value="Liên hệ từ Cyberpunk Blog">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="javascript:void(0)">
+
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block mb-2 text-cyber-blue">TÊN</label>
+                                <input type="text" id="name" name="name"
+                                    class="w-full bg-black border-2 border-cyber-blue text-white p-3 rounded-md focus:outline-none focus:border-cyber-yellow text-base"
+                                    placeholder="Nhập tên của bạn" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-2 text-cyber-blue">EMAIL</label>
+                                <input type="email" id="email" name="email"
+                                    class="w-full bg-black border-2 border-cyber-blue text-white p-3 rounded-md focus:outline-none focus:border-cyber-yellow text-base"
+                                    placeholder="Nhập email của bạn" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block mb-2 text-cyber-blue">CHỦ ĐỀ</label>
+                            <input type="text" id="subject" name="subject"
+                                class="w-full bg-black border-2 border-cyber-blue text-white p-3 rounded-md focus:outline-none focus:border-cyber-yellow text-base"
+                                placeholder="Nhập chủ đề" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block mb-2 text-cyber-blue">TIN NHẮN</label>
+                            <textarea id="message" name="message" rows="5"
+                                class="w-full bg-black border-2 border-cyber-blue text-white p-3 rounded-md focus:outline-none focus:border-cyber-yellow text-base"
+                                placeholder="Nhập tin nhắn của bạn" required></textarea>
+                        </div>
+                        <div class="flex justify-center mt-6">
+                            <button type="submit"
+                                class="bg-cyber-blue hover:bg-cyber-purple text-white font-orbitron py-3 px-8 rounded-md transition duration-300 transform hover:scale-105">GỬI
+                                TIN NHẮN</button>
+                        </div>
+                    </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-8 border-t border-cyber-blue">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-orbitron font-bold text-cyber-blue">Desir1_<span
+                            class="text-cyber-purple">BLOG</span></h3>
+                </div>
+                <div class="flex space-x-6 mb-4 md:mb-0">
+                    <a href="https://facebook.com/hieupham.lfm" class="text-cyber-blue hover:text-cyber-yellow"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://github.com/Shiroakiii085" class="text-cyber-blue hover:text-cyber-yellow"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/hiuphl.shi_aki/"
+                        class="text-cyber-blue hover:text-cyber-yellow"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    &copy; 2025 Desir1_Blog. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
